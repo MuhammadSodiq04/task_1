@@ -14,9 +14,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    BlocProvider.of<PostsBloc>(context).add(GetPosts());
+    context.read<PostsBloc>().add(GetPosts());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocBuilder<PostsBloc, PostsState>(
         builder: (context, state) {
           if(state is ErrorPosts){
-            return const Center(child: Text("Error"),);
+            return Center(child: Text(state.errorText));
           }
           if(state is SuccessPosts) {
             return ListView(

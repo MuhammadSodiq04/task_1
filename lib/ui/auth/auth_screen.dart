@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_1/cubits/auth_cubit/auth_cubit.dart';
 import 'package:task_1/data/local/hive_servise.dart';
-import 'package:task_1/ui/home/home_screen.dart';
+import 'package:task_1/ui/tab_box/tab_box.dart';
 import 'package:task_1/ui/widgets/global_button.dart';
 import 'package:task_1/ui/widgets/global_input.dart';
 
@@ -88,8 +88,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         HiveService.set("lastname", state.lastnameController.text);
                         HiveService.set("email", state.emailController.text);
                         HiveService.set("isAuth", true);
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return const HomeScreen();
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                          return const TabBox();
                         }));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
