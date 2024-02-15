@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_1/blocs/users/users_bloc.dart';
-import 'package:task_1/data/local/hive_servise.dart';
 import 'package:task_1/data/models/user/user_model.dart';
 import 'package:task_1/data/models/users/users_model.dart';
 import 'package:task_1/ui/auth/auth_screen.dart';
