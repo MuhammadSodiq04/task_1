@@ -22,6 +22,11 @@ class HiveService {
     await box.add(user);
   }
 
+  static Future<void> deleteAllUsers() async {
+    final box = await openBox();
+    await box.clear();
+  }
+
   static Future<List<UserModel>> getAllUsers() async {
     final box = await openBox();
     return box.values.toList();

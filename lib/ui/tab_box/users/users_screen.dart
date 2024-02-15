@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_1/blocs/users/users_bloc.dart';
+import 'package:task_1/data/local/hive_servise.dart';
 import 'package:task_1/data/models/user/user_model.dart';
 import 'package:task_1/data/models/users/users_model.dart';
 import 'package:task_1/ui/auth/auth_screen.dart';
@@ -27,11 +28,13 @@ class _UsersScreenState extends State<UsersScreen> {
         scrolledUnderElevation: 0,
         title: const Text("Users screen"),
         actions: [
-          IconButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context){
-              return const AuthScreen();
-            }));
-          }, icon: const Icon(Icons.login))
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                  return const AuthScreen();
+                }));
+              },
+              icon: const Icon(Icons.login))
         ],
       ),
       body: BlocBuilder<UsersBloc, UsersState>(
@@ -44,25 +47,37 @@ class _UsersScreenState extends State<UsersScreen> {
               children: [
                 state.localUsers.isNotEmpty
                     ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Text("Local users", style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.w700),),
-                      ),
-                        ...List.generate(state.localUsers.length, (index) {
-                          UserModel user = state.localUsers[index];
-                          return ListTile(
-                            title: Text(user.name),
-                            subtitle: Text(user.email),
-                            trailing: Text(index.toString()),
-                          );
-                        })
-                      ])
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                "Local users",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                            ...List.generate(state.localUsers.length, (index) {
+                              UserModel user = state.localUsers[index];
+                              return ListTile(
+                                title: Text(user.name),
+                                subtitle: Text(user.email),
+                                trailing: Text(index.toString()),
+                              );
+                            })
+                          ])
                     : const SizedBox(),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text("Network users", style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.w700),),
+                  child: Text(
+                    "Network users",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700),
+                  ),
                 ),
                 ...List.generate(state.users.length, (index) {
                   UsersModel user = state.users[index];
