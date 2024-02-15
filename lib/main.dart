@@ -10,8 +10,7 @@ import 'package:task_1/data/local/hive_servise.dart';
 import 'package:task_1/data/local/posts/posts_hive_servise.dart';
 import 'package:task_1/data/network/api_provider.dart';
 import 'package:task_1/data/network/api_repository.dart';
-// import 'package:task_1/ui/auth/auth_screen.dart';
-import 'package:task_1/ui/tab_box/tab_box.dart';
+import 'package:task_1/ui/auth/auth_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +44,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: TabBox());
+        debugShowCheckedModeBanner: false, home: AuthScreen());
   }
 }

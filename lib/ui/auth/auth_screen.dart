@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_1/cubits/auth_cubit/auth_cubit.dart';
 import 'package:task_1/data/local/hive_servise.dart';
+import 'package:task_1/data/models/user/user_model.dart';
 import 'package:task_1/ui/tab_box/tab_box.dart';
 import 'package:task_1/ui/widgets/global_button.dart';
 import 'package:task_1/ui/widgets/global_input.dart';
@@ -80,17 +81,20 @@ class _AuthScreenState extends State<AuthScreen> {
                     color: Colors.blueAccent,
                     textColor: Colors.white,
                     title: "Continue",
-                    onTap: () {
+                    onTap: () async {
                       if (state.nameController.text.isNotEmpty &&
                           state.lastnameController.text.isNotEmpty &&
                           state.emailController.text.isNotEmpty) {
-                        HiveService.set("name", state.nameController.text);
-                        HiveService.set("lastname", state.lastnameController.text);
-                        HiveService.set("email", state.emailController.text);
-                        HiveService.set("isAuth", true);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-                          return const TabBox();
-                        }));
+                        await HiveService.addUser(UserModel(
+                            name: state.nameController.text,
+                            lastname: state.lastnameController.text,
+                            email: state.emailController.text));
+                        if (context.mounted) {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const TabBox();
+                          }));
+                        }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           backgroundColor: Colors.red,
